@@ -46,6 +46,7 @@ use App\Http\Controllers\Backend\WhatsAppSettingController;
 use App\Http\Controllers\Backend\HeadInquiryController;
 use App\Http\Controllers\Backend\HeadInquiryProductDetailController;
 use App\Http\Controllers\Frontend\InvitationController;
+use App\Http\Controllers\Staff\WhatsappTemplateController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -203,6 +204,17 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('update', [\App\Http\Controllers\Staff\LeadController::class, 'update'])->name('update');
             Route::post('assign-staff', [\App\Http\Controllers\Staff\LeadController::class, 'assignStaff'])->name('assign-staff');
             Route::post('delete', [\App\Http\Controllers\Staff\LeadController::class, 'delete'])->name('delete');
+        });
+    });
+
+    Route::group(['prefix' => 'whatsapp-template', 'as' => 'whatsapp-template.'], function () {
+        Route::get('/', [WhatsappTemplateController::class, 'index'])->name('index');
+        Route::post('store', [WhatsappTemplateController::class, 'store'])->name('store');
+        Route::post('edit', [WhatsappTemplateController::class, 'edit'])->name('edit');
+        Route::group(['prefix' => '{whatsappTemplate}'], function () {
+            Route::post('update', [WhatsappTemplateController::class, 'update'])->name('update');
+            Route::post('assign-staff', [WhatsappTemplateController::class, 'assignStaff'])->name('assign-staff');
+            Route::post('delete', [WhatsappTemplateController::class, 'delete'])->name('delete');
         });
     });
 
