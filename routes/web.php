@@ -209,6 +209,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::group(['prefix' => 'whatsapp-template', 'as' => 'whatsapp-template.'], function () {
         Route::get('/', [WhatsappTemplateController::class, 'index'])->name('index');
+        Route::get('list', [WhatsappTemplateController::class, 'templateList'])->name('list');
         Route::post('store', [WhatsappTemplateController::class, 'store'])->name('store');
         Route::post('edit', [WhatsappTemplateController::class, 'edit'])->name('edit');
         Route::group(['prefix' => '{whatsappTemplate}'], function () {

@@ -58,9 +58,8 @@
                                 <input type="text" name="title" id="title" class="form-control">
                             </div>
                             <div class="col-12 mb-2">
-                                <label for="name" class="form-label">Message<span
-                                            class="text-danger">*</span></label>
-                               <textarea class="form-control" name="message" id="message"></textarea>
+                                <label for="message" class="form-label">Message<span class="text-danger">*</span></label>
+                                <textarea class="form-control" name="message" id="message" rows="5" style="white-space: pre-wrap;"></textarea>
                             </div>
 
 
@@ -84,6 +83,14 @@
 @push('scripts')
     {!! $dataTable->scripts() !!}
     <script>
+        $(document).ready(function() {
+            $('#message').on('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.stopPropagation(); // Prevent event from bubbling up
+                    return true;
+                }
+            });
+        });
         $('#serviceForm').attr('action', '{{route('whatsapp-template.store')}}');
 
         function showStatusModal(id, status) {
@@ -122,8 +129,8 @@
                         if (response.status == true) {
                             $('#serviceForm').attr('action', '{{route('whatsapp-template.update','id')}}'.replace('id', response.data.id));
 
-                            $('input[name="name"]').val(response.data.name);
-                            $('#parent_id').val(response.data.parent_id);
+                            $('input[name="title"]').val(response.data.title);
+                            $('#message').val(response.data.message);
 
 
                         }

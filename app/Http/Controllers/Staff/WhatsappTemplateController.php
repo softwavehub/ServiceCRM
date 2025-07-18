@@ -6,6 +6,7 @@ use App\DataTables\StaffWhatsappTemplateDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\WhatsappTemplate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class WhatsappTemplateController extends Controller
 {
@@ -22,6 +23,7 @@ class WhatsappTemplateController extends Controller
         $WhatsappTemplate = new WhatsappTemplate();
         $WhatsappTemplate->title = $request->title;
         $WhatsappTemplate->message = $request->message;
+        $WhatsappTemplate->staff_id = Auth::id();
         $WhatsappTemplate->save();
 
 
@@ -88,5 +90,13 @@ class WhatsappTemplateController extends Controller
                 'message' => $e->getMessage()
             ]);
         }
+    }
+
+    public function templateList(){
+        $templates = WhatsAppTemplate::where('staff_id', auth()->id())->get();
+        return response()->json([
+            'status' => true,
+            'data' => $templates
+        ]);
     }
 }

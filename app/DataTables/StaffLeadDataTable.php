@@ -25,7 +25,11 @@ class StaffLeadDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addIndexColumn();
+            ->addIndexColumn()
+            ->addColumn('radio', function ($query) {
+                return '<input type="radio" name="lead_radio" class="lead-radio" value="'.$query->id.'" data-phone="'.$query->phone.'">';
+            })
+            ->rawColumns(['radio']);
     }
 
 
@@ -107,6 +111,11 @@ class StaffLeadDataTable extends DataTable
     public function getColumns(): array
     {
         return [
+            Column::computed('radio', 'Select')
+                ->exportable(false)
+                ->printable(false)
+                ->searchable(false)
+                ->orderable(false),
             Column::computed('DT_RowIndex', 'No')
                 ->exportable(false)
                 ->printable(false)
