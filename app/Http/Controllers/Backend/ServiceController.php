@@ -14,6 +14,7 @@ class ServiceController extends Controller
     }
 
     public function store(Request $request){
+
         $request->validate([
            'name' => 'required',
            'description' => 'required',
@@ -21,8 +22,12 @@ class ServiceController extends Controller
         ]);
         $service = new Service();
         $service->name = $request->name;
+        $service->category_1 = $request->category_1;
+        $service->category_2 = $request->category_2;
+        $service->category_3 = $request->category_3;
         $service->description = $request->description;
         $service->inclusions = $request->inclusions;
+        $service->tenture = $request->tenture;
         if ($request->hasFile('attachment')) {
             $image = $request->file('attachment');
             $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
@@ -70,8 +75,12 @@ class ServiceController extends Controller
             'inclusions' => 'required',
         ]);
         $service->name = $request->name;
+        $service->category_1 = $request->category_1;
+        $service->category_2 = $request->category_2;
+        $service->category_3 = $request->category_3;
         $service->description = $request->description;
         $service->inclusions = $request->inclusions;
+        $service->tenture = $request->tenture;
         if ($request->hasFile('attachment')) {
             $image = $request->file('attachment');
             $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();

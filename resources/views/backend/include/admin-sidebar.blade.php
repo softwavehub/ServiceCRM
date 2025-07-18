@@ -23,12 +23,6 @@
                 <div>Dashboard</div>
             </a>
         </li>
-        <li class="menu-item @if(Route::is('services.*')) active @endif">
-            <a href="{{route('services.index')}}" class="menu-link">
-                <i class="menu-icon tf-icons ti ti-file-description"></i>
-                <div>Services</div>
-            </a>
-        </li>
         <li class="menu-item @if(Route::is('leads.*')) active @endif">
             <a href="{{route('leads.index')}}" class="menu-link">
                 <i class="menu-icon tf-icons ti ti-package"></i>
@@ -37,10 +31,24 @@
         </li>
         <li class="menu-item @if(Route::is('staff.*')) active @endif">
             <a href="{{route('staff.index')}}" class="menu-link">
-                <i class="menu-icon tf-icons ti ti-package"></i>
+                <i class="menu-icon tf-icons ti ti-user-bolt"></i>
                 <div>Staff</div>
             </a>
         </li>
+        <li class="menu-item @if(Route::is('categories.*')) active @endif">
+            <a href="{{route('categories.index')}}" class="menu-link">
+                <i class="menu-icon tf-icons ti ti-file-description"></i>
+                <div>Categories</div>
+            </a>
+        </li>
+        <li class="menu-item @if(Route::is('services.*')) active @endif">
+            <a href="{{route('services.index')}}" class="menu-link">
+                <i class="menu-icon tf-icons ti ti-file-description"></i>
+                <div>Services</div>
+            </a>
+        </li>
+
+
         {{--<li class="menu-item @if(Route::is('users.*')) active @endif">
             <a href="{{route('users.index')}}" class="menu-link">
                 <i class="menu-icon tf-icons ti ti-user-circle"></i>

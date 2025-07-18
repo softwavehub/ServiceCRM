@@ -24,6 +24,33 @@
                 <div>Dashboard</div>
             </a>
         </li>
+        <li class="menu-item @if(Route::is('general-term-condition-categories.*') || Route::is('term-condition-categories.*')
+                || Route::is('documents.*') || Route::is('general-term-conditions.*') || Route::is('term-conditions.*')) open @endif">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons ti ti-file-description"></i>&nbsp;
+                <div>Templates</div>
+            </a>
+        <ul class="menu-sub">
+            <li class="menu-item">
+                <a href="#" class="menu-link">
+                    <i class="menu-icon tf-icons ti ti-file-description"></i>
+                    <div>Whatsapp</div>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="#" class="menu-link">
+                    <i class="menu-icon tf-icons ti ti-file-description"></i>
+                    <div>Telegram</div>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="#" class="menu-link">
+                    <i class="menu-icon tf-icons ti ti-file-description"></i>
+                    <div>Email</div>
+                </a>
+            </li>
+        </ul>
+        </li>
         <li class="menu-item @if(Route::is('staff-leads.*')) active @endif">
             <a href="{{route('staff-leads.index')}}" class="menu-link">
                 <i class="menu-icon tf-icons ti ti-file-description"></i>

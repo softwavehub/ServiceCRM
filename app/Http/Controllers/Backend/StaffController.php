@@ -110,4 +110,12 @@ class StaffController extends Controller
             ]);
         }
     }
+    public function stafflist()
+    {
+        $staff = User::where('role', 'staff')->get();
+        return response()->json([
+            'status' => true,
+            'data' => $staff
+        ]);
+    }
 }

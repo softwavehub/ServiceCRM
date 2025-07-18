@@ -10,6 +10,8 @@ class Lead extends Model
 {
     use HasFactory,ModelActionTrait;
 
+    protected $fillable = ['name','phone','email'];
+
     public function getActionButtonsAttribute()
     {
         $deleteAction = $this->deleteModel(route("leads.delete", $this), csrf_token(), "leads-table");
@@ -18,7 +20,7 @@ class Lead extends Model
             . '<ul class="dropdown-menu dropdown-menu-end m-0">'
             . $this->editModal($this->id)
             . $deleteAction
-            . $this->assignStaffModal($this->id)
+//            . $this->assignStaffModal($this->id)
             . '</ul></div>';
 
     }

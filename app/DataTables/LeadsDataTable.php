@@ -25,15 +25,23 @@ class LeadsDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addIndexColumn()
+            ->addColumn('checkbox', function ($query) {
+                $disabled = $query->staff->isNotEmpty() ? 'disabled' : '';
+                return '<input type="checkbox" class="lead-checkbox" value="'.$query->id.'" '.$disabled.'>';
+            })
+            ->addColumn('staff', function ($query) {
+                return $query->staff->isNotEmpty() ? $query->staff->first()->name : 'N/A';
+            })
             ->addColumn('action', function ($query) {
                 return $query->action_buttons;
-            })->rawColumns(['action']);
+            })
+            ->rawColumns(['checkbox', 'action', 'staff']);
     }
 
 
     public function query(Lead $model)
     {
-        return $model->newQuery()->latest();
+        return $model->newQuery()->with('staff')->latest();
     }
 
     /**
@@ -105,7 +113,17 @@ class LeadsDataTable extends DataTable
     public function getColumns(): array
     {
         return [
+            Column::computed('checkbox', '<input type="checkbox" class="select-all-checkbox">')
+                ->exportable(false)
+                ->printable(false)
+                ->searchable(false)
+                ->orderable(false),
             Column::computed('DT_RowIndex', 'No')
+                ->exportable(false)
+                ->printable(false)
+                ->searchable(false)
+                ->orderable(false),
+            Column::computed('staff', 'Assign')
                 ->exportable(false)
                 ->printable(false)
                 ->searchable(false)

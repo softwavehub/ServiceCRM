@@ -6,6 +6,7 @@ use App\Http\Controllers\Backend\AdminBranchController;
 use App\Http\Controllers\Backend\AdminVendorController;
 use App\Http\Controllers\Backend\ApprovalController;
 use App\Http\Controllers\Backend\BranchController;
+use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\CountryStateCityController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\DocumentController;
@@ -159,6 +160,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::group(['prefix' => 'staff', 'as' => 'staff.'], function () {
         Route::get('/', [StaffController::class, 'index'])->name('index');
+        Route::get('list', [StaffController::class, 'stafflist'])->name('list');
         Route::post('store', [StaffController::class, 'store'])->name('store');
         Route::post('edit', [StaffController::class, 'edit'])->name('edit');
         Route::group(['prefix' => '{user}'], function () {
@@ -167,10 +169,25 @@ Route::group(['middleware' => ['auth']], function () {
         });
     });
 
+    Route::group(['prefix' => 'categories', 'as' => 'categories.'], function () {
+        Route::get('/', [CategoryController::class, 'index'])->name('index');
+        Route::post('store', [CategoryController::class, 'store'])->name('store');
+        Route::post('edit', [CategoryController::class, 'edit'])->name('edit');
+        // In your web.php routes file
+        Route::get('get-by-parent', [CategoryController::class, 'getByParent'])->name('get-by-parent');
+        Route::group(['prefix' => '{category}'], function () {
+            Route::post('update', [CategoryController::class, 'update'])->name('update');
+            Route::post('delete', [CategoryController::class, 'delete'])->name('delete');
+        });
+    });
+
     Route::group(['prefix' => 'leads', 'as' => 'leads.'], function () {
         Route::get('/', [LeadsController::class, 'index'])->name('index');
+        Route::post('bulk-assign', [LeadsController::class, 'bulkAssign'])->name('bulk-assign');
         Route::post('store', [LeadsController::class, 'store'])->name('store');
         Route::post('edit', [LeadsController::class, 'edit'])->name('edit');
+        Route::post('import', [LeadsController::class, 'import'])->name('import');
+        Route::get('download-sample', [LeadsController::class, 'downloadSample'])->name('download-sample');
         Route::group(['prefix' => '{lead}'], function () {
             Route::post('update', [LeadsController::class, 'update'])->name('update');
             Route::post('assign-staff', [LeadsController::class, 'assignStaff'])->name('assign-staff');
